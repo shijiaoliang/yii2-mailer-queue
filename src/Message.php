@@ -9,7 +9,7 @@ use yii\base\InvalidConfigException;
 /**
  * Class Message
  *
- * @package zangsilu\mailerqueue
+ * @package shijiaoliang\mailerqueue
  */
 class Message extends \yii\swiftmailer\Message
 {
@@ -53,6 +53,7 @@ class Message extends \yii\swiftmailer\Message
         if (!is_array($parts) || !sizeof($parts)) {
             $parts = [$this->getSwiftMessage()];
         }
+        
         foreach ($parts as $part) {
             if (!$part instanceof Swift_Mime_Attachment) {
                 switch($part->getContentType()) {

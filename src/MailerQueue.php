@@ -32,14 +32,17 @@ class MailerQueue extends Mailer
         if (empty($redis)) {
             throw new InvalidConfigException('redis not found in config.');
         }
+        
         if ($redis->select($this->redisDB) && $messages = $redis->lrange($this->key, 0, -1)) {
             $messageObj = new Message;
+            
             foreach ($messages as $message) {
                 $message = json_decode($message, true);
 
                 if (empty($message) || !$this->setMessage($messageObj, $message)) {
                     throw new ServerErrorHttpException('message error');
                 }
+                
                 if ($messageObj->send()) {
                     $redis->lrem($this->key,1,  json_encode($message));
                 }
@@ -62,6 +65,7 @@ class MailerQueue extends Mailer
         if (empty($messageObj)) {
             return false;
         }
+        
         if (!empty($message['from']) && !empty($message['to'])) {
             $messageObj->setFrom($message['from'])->setTo($message['to']);
             if (!empty($message['cc'])) {
@@ -85,6 +89,7 @@ class MailerQueue extends Mailer
             if (!empty($message['text_body'])) {
                 $messageObj->setTextBody($message['text_body']);
             }
+            
             return $messageObj;
         }
         

@@ -1,6 +1,6 @@
 <?php
 
-namespace zangsilu\mailerqueue;
+namespace shijiaoliang\mailerqueue;
 
 
 use Redis;
@@ -11,7 +11,7 @@ use yii\web\ServerErrorHttpException;
 
 class MailerQueue extends Mailer
 {
-    public $messageClass = 'zangsilu\mailerqueue\Message';
+    public $messageClass = 'shijiaoliang\mailerqueue\Message';
     public $key = 'mailerMessage';
     public $redisDB = 1;
     public $aa = 1;
@@ -45,6 +45,7 @@ class MailerQueue extends Mailer
                 }
             }
         }
+        
         return true;
     }
 
@@ -86,6 +87,7 @@ class MailerQueue extends Mailer
             }
             return $messageObj;
         }
+        
         return false;
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace zangsilu\mailerqueue;
+namespace shijiaoliang\mailerqueue;
 
 use Swift_Mime_Attachment;
 use Yii;
@@ -46,7 +46,8 @@ class Message extends \yii\swiftmailer\Message
         $message['cc'] = array_keys(empty($this->getCc()) ? [] : $this->getCc());
         $message['bcc'] = array_keys(empty($this->getBcc()) ? [] : $this->getBcc());
         $message['reply_to'] = array_keys(empty($this->getReplyTo()) ? [] : $this->getReplyTo());
-        $message['charset'] = array_keys(empty($this->getCharset()) ? [] : $this->getCharset());
+        //$message['charset'] = array_keys(empty($this->getCharset()) ? [] : $this->getCharset());
+        $message['charset'] = empty($this->getCharset()) ? '' : $this->getCharset();
         $message['subject'] = is_array($this->getSubject()) ? array_keys($this->getSubject()) :$this->getSubject();
         $parts = $this->getSwiftMessage()->getChildren();
         if (!is_array($parts) || !sizeof($parts)) {
@@ -67,8 +68,7 @@ class Message extends \yii\swiftmailer\Message
                 }
             }
         }
+        
         return $redis->rpush('mailerMessage', json_encode($message));
-
-
     }
 }

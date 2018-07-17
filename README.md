@@ -12,7 +12,7 @@
 ## 安装
 
 ```shell
-composer require zangsilu/yii2-mailer-queue
+composer require shijiaoliang/yii2-mailer-queue
 ```
 
 ## 使用
@@ -28,7 +28,7 @@ composer require zangsilu/yii2-mailer-queue
         ],
         /* 邮件发送设置 */
         'mailer'       => [
-            'class'            => 'zangsilu\mailerqueue\MailerQueue',
+            'class'            => 'shijiaoliang\mailerqueue\MailerQueue',
             'redisDB'=>1,//使用redis1号库存储邮件队列
             'useFileTransport' => false, //必须改为false,true只是生成邮件在runtime文件夹下，不发邮件
             'transport'        => [
@@ -75,16 +75,4 @@ crontab -e
 */1 * * * * php yii mailer-queue/send > ./log/mailer-send.log
 ```
 
-## 帮助
-
-- 意见、BUG反馈： https://github.com/zangsilu/yii2-mailer-queue/issues
-
-## 支持
-
-- 官方网址： http://blog2.pl39.com/
-- composer： https://getcomposer.org/
-
-## License
-
-MIT
 
